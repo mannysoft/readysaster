@@ -1,8 +1,8 @@
 <?php
 
-class Data extends BaseModel {
+class Disaster extends BaseModel {
 
-	protected $table = 'data';
+	protected $table = 'disasters';
 		
 	protected $fillable = array(
 						'lat', 

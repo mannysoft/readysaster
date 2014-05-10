@@ -23,35 +23,36 @@ Event::listen('illuminate.query', function($sql)
 
 // Login
 Route::any('login',   'LoginController@login');
-Route::any('logout',  'LoginController@logout');
+Route::any('/',   'LoginController@login');
 
+// Use for future API
 // Route group for API versioning
 Route::group(array('prefix' => 'api/v1'), function()
 {
-	Route::get('videos/{id}/comments', 'VideoApiController@comments');
-	Route::get('videos/search', 'VideoApiController@search');
+	Route::get('pre-disaster', 		'PreDisasterController@index');
 						
 });
 	
 
 // Secure routes
+// You need to login to see all pages below
 Route::group(array('before' => 'auth'), function()
 {
-	Route::any('dashboard', 			'AdminController@index');
+	Route::any('dashboard', 					'AdminController@index');
 	
-	Route::any('officers', 				'OfficerController@index');
-	Route::any('officers/add', 	  		'OfficerController@add');
-	Route::any('officers/edit/{id}', 	'OfficerController@edit');
-	Route::any('officers/delete/{id}',  'OfficerController@delete');
+	Route::any('officers', 						'OfficerController@index');
+	Route::any('officers/add', 	  				'OfficerController@add');
+	Route::any('officers/edit/{id}', 			'OfficerController@edit');
+	Route::any('officers/delete/{id}',  		'OfficerController@delete');
 
-	Route::any('submitted', 			'DataController@index');
-	Route::any('submitted/map/{id}', 	'DataController@map');
+	Route::any('pre-disaster', 					'PreDisasterController@index');
+	Route::any('pre-disaster/map/{id}', 		'PreDisasterController@map');
 	
-	Route::any('profile', 			'AccountController@profile');
-	Route::any('profile/edit', 		'AccountController@edit');
-	Route::any('change_password', 	'AccountController@changePassword');
+	Route::any('profile', 						'AccountController@profile');
+	Route::any('profile/edit', 					'AccountController@edit');
+	Route::any('change_password', 				'AccountController@changePassword');
+
+	Route::any('logout',  						'LoginController@logout');
 	
 });
 
-
-Route::any('/',   'LoginController@login');

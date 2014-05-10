@@ -25,7 +25,7 @@
     <td>{{ $row->created_at->toFormattedDateString() }}</td>
     <td>{{ $row->lgu->name }}</td>
     <td>{{ $row->user->first_name }} {{ $row->user->last_name }}</td>
-    <td>{{ $row->mobile }}</td>
+    <td>{{ $row->address }}</td>
     <td></td>
     <td>
       <a href="{{Request::root()}}/submitted/view/{{ $row->id }}" class="btn btn-primary btn-small">Picture</a>

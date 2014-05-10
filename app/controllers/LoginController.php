@@ -4,9 +4,9 @@ class LoginController extends BaseController {
 	
 	public function login()
 	{				
-		
-		$data = array();
-		
+		// If already logged in redirect to admin dashboard
+		if (Auth::check()) return Redirect::to('dashboard');
+
 		$data['status'] = '';
 				
 		$input = Input::all();
@@ -22,7 +22,10 @@ class LoginController extends BaseController {
 		
 		if (Input::get('op'))
 		{
-			$credentials = array('username' => Input::get('username'), 'password' => Input::get('password'));
+			$credentials = array(
+					'username' => Input::get('username'), 
+					'password' => Input::get('password')
+					);
 	
 			if (Auth::attempt($credentials))
 			{				

@@ -24,7 +24,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 <br />
-<h4 class="text-success">{{ $title }}<span class="badge badge-success"><?=$count;?></span></h4>
+<h4 class="text-success">{{ $title }}<span class="badge badge-success"></span></h4>
 <div id="map-canvas"></div>
 @stop
 

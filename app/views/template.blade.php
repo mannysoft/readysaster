@@ -62,8 +62,8 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="{{ Request::root()}}/officers">DRRM Officers</a></li>
-              <li><a href="{{ Request::root()}}/submitted">Submitted</a></li>
-              <li><a href="{{ Request::root()}}/link">Link</a></li>
+              <li><a href="{{ Request::root()}}/pre-disaster">Pre Disaster</a></li>
+              <li><a href="{{ Request::root()}}/post-disaster">Post Disaster</a></li>
               <li><a href="{{ Request::root()}}/link">Link</a></li>
               
               @if (Auth::user()->user_type == 'admin')

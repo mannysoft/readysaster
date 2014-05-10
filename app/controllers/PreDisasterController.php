@@ -1,6 +1,6 @@
 <?php
 
-class DataController extends BaseController {
+class PreDisasterController extends BaseController {
 	
 	/**
 	 * The template to use.
@@ -9,30 +9,30 @@ class DataController extends BaseController {
 	 */
 	protected $layout = 'template';
 	
-	protected $data;
+	protected $disaster;
 	
 	/**
 	 * Constructor.
 	 *
 	 * @var interface
 	 */
-	public function __construct(Data $data)
+	public function __construct(Disaster $disaster)
 	{
-		$this->data = $data;
+		$this->disaster = $disaster;
 	}
 	
 	public function index()
 	{	
 		$data = array();
 		
-		$data['title'] = 'Data Submitted';
+		$data['title'] = 'Pre Disaster';
 		
 		$search = Input::get('search');
 				
-		$data['rows'] =  $this->data->with('user', 'lgu')->orderBy('created_at')->paginate(10);
-		$data['count'] = $this->data->count();
+		$data['rows'] =  $this->disaster->with('user', 'lgu')->orderBy('created_at')->paginate(10);
+		$data['count'] = $this->disaster->count();
 		
-		return View::make('submitted.index', $data);
+		return View::make('pre.index', $data);
 	}
 	
 	
@@ -47,11 +47,11 @@ class DataController extends BaseController {
 		$data['rows'] =  $this->data->with('user', 'lgu')->orderBy('created_at')->paginate(10);
 		$data['count'] = $this->data->count();
 		
-		return View::make('submitted.map', $data);
+		return View::make('pre.map', $data);
 	}
 	
 	public function delete($id)
 	{
-		$p = $this->officer->find($id);
+		$this->officer->find($id)->delete();
 	}
 }
