@@ -43,6 +43,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::any('officers/add', 	  		'OfficerController@add');
 	Route::any('officers/edit/{id}', 	'OfficerController@edit');
 	Route::any('officers/delete/{id}',  'OfficerController@delete');
+
+	Route::any('submitted', 			'DataController@index');
 	
 	Route::any('profile', 			'AccountController@profile');
 	Route::any('profile/edit', 		'AccountController@edit');

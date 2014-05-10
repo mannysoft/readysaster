@@ -11,9 +11,9 @@ class Asset extends BaseModel{
 						'name',
 						);
 	
-	public function video()
+	public function user()
     {
-        return $this->belongsTo('Video');
+        return $this->belongsTo('User');
     }
 }
 ?>
