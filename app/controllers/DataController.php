@@ -36,54 +36,18 @@ class DataController extends BaseController {
 	}
 	
 	
-	public function add()
+	public function map($id)
 	{	
+		//return Data::find($id);
+
 		$data = array();
-	
-		$data['title'] = 'Add Photo';
 		
-		if (Input::get('op'))
-		{
-			$file = Input::file('photo');
-			
-			$p = $this->photo->fill(Input::all());
-			
-			
-			$p->date = time();
+		$data['title'] = 'Map View';
 				
-			if($p->save()) return Redirect::to('admin/photo');
-			
-			$data['errors'] = $p->errors;
-			
-		}
+		$data['rows'] =  $this->data->with('user', 'lgu')->orderBy('created_at')->paginate(10);
+		$data['count'] = $this->data->count();
 		
-		return View::make('officers.add', $data);
-	}
-	
-	public function edit($id)
-	{	
-		
-		$data = array();
-				
-		$data['title'] = 'Edit Photo';
-		
-		if (Input::get('op'))
-		{
-			$file = Input::file('photo');
-			
-			
-			
-			$p->date = time();
-			
-			if($p->save()) return Redirect::to('admin/photo');
-			
-			$data['errors'] = $p->errors;
-			
-		}
-		
-		$data['info'] = $this->photo->find($id);
-		
-		return View::make('officers.edit', $data);
+		return View::make('submitted.map', $data);
 	}
 	
 	public function delete($id)

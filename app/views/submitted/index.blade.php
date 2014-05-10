@@ -9,7 +9,7 @@
     <th width="26%">Date</th>
     <th width="13%"><strong>LGU</strong></th>
     <th width="19%">Name</th>
-    <th width="17%">&nbsp;</th>
+    <th width="17%">Address</th>
     <th width="4%">Actions</th>
     <td width="19%">
       <!--<a href="{{Request::root()}}/add" class="btn btn-primary btn-small">Add</a>-->
@@ -28,9 +28,10 @@
     <td>{{ $row->mobile }}</td>
     <td></td>
     <td>
-      <a href="{{Request::root()}}/submitted/view/{{ $row->id }}" class="btn btn-primary btn-small">View</a>
-      <a href="{{Request::root()}}/admin/photo/edit/{{ $row->id }}" class="btn btn-primary btn-small">Edit</a>
-      <a href="#" class="btn btn-small" id="delete" val="{{ $row->id }}">Delete</a>
+      <a href="{{Request::root()}}/submitted/view/{{ $row->id }}" class="btn btn-primary btn-small">Picture</a>
+      <a href="{{Request::root()}}/submitted/map/{{ $row->id }}" class="btn btn-primary btn-small">Map</a>
+      <!--<a href="{{Request::root()}}/admin/photo/edit/{{ $row->id }}" class="btn btn-primary btn-small">Edit</a>
+      <a href="#" class="btn btn-small" id="delete" val="{{ $row->id }}">Delete</a>-->
     </td>
   </tr>
   @endforeach
