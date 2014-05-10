@@ -1,0 +1,2 @@
+AuthName "images"
+AuthUserFile "/home/myhomero/.htpasswds/public_html/images/passwd"
