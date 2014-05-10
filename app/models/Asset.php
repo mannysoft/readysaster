@@ -1,17 +1,14 @@
 <?php 
-class Rating extends BaseModel{
+class Asset extends BaseModel{
 	
-	protected $table = 'ratings';
+	protected $table = 'assets';
 	
 	public $timestamps = false;
 	
 	protected static $rules = array();
 	
 	protected $fillable = array(
-						'facebook_id', 
-						'video_id', 
-						'rating',
-						'date',
+						'name',
 						);
 	
 	public function video()

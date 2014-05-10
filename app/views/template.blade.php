@@ -61,7 +61,7 @@
           <a class="brand" href="{{ Request::root()}}/admin/dashboard">App</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="{{ Request::root()}}/link">Link</a></li>
+              <li><a href="{{ Request::root()}}/officers">DRRM Officers</a></li>
               <li><a href="{{ Request::root()}}/link">Link</a></li>
               <li><a href="{{ Request::root()}}/link">Link</a></li>
               <li><a href="{{ Request::root()}}/link">Link</a></li>

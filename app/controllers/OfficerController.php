@@ -9,29 +9,28 @@ class OfficerController extends BaseController {
 	 */
 	protected $layout = 'template';
 	
-	protected $photo;
+	protected $officer;
 	
 	/**
 	 * Constructor.
 	 *
 	 * @var interface
 	 */
-	public function __construct(Photo $photo)
+	public function __construct(Officer $officer)
 	{
-		$this->photo = $photo;
+		$this->officer = $officer;
 	}
 	
-	public function index($title = '', $author = '')
+	public function index()
 	{	
 		$data = array();
 		
 		$data['title'] = 'Officers';
 		
 		$search = Input::get('search');
-		
 				
-		$data['rows'] =  $this->photo->orderBy('title')->paginate(10);
-		$data['count'] = $this->photo->count();
+		$data['rows'] =  $this->officer->orderBy('name')->paginate(10);
+		$data['count'] = $this->officer->count();
 		
 		return View::make('officers.index', $data);
 	}
