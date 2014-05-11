@@ -55,12 +55,51 @@ class JsonController extends BaseController {
 
 		$i = 0;
 
+		if (Input::get('list') == 1)
+		{
+			$return = '<table width="100%" id="myTable" class="table">
+              <thead>
+              <tr>
+                <th width="2%">&nbsp;</th>
+                <th width="27%">Complete Address</th>
+                <th width="28%"><strong>Type of Exposure</strong></th>
+                <th width="8%">Cost of Property</th>
+                <th width="10%">Number of Person</th>
+                <th width="13%">Number of Family</th>
+                <td width="12%">
+                  <strong>Average Income per month</strong></td>
+              </tr>
+              </thead>
+              <tbody>';
+
+              $i=1;
+              
+              $total = '';
+
+              foreach($locations as $row){
+              $return .='
+              <tr>
+                <td></td>
+                <td>'.$row->line_address.'</td>
+                <td>'.'<img src="'.$row->marker.'" />'.$row->asset->name.'</td>
+                <td>'.$row->cost.'</td>
+                <td>'.$row->persons.'</td>
+                <td>'.$row->families.'</td>
+                <td>'.$row->income_month.'</td>
+              </tr>';
+              }
+              
+              $return .='</tbody></table>';
+
+            return $return;
+		}
+
 
 
 		foreach ($locations as $exposure)
 		{
 			$locationData[] = array('<div style="display:block !important; width:300px !important; height:auto !important;">
-									<img src="'.Request::root().'/'.$exposure->image.'"/>
+									<img src="http://rustancapal.rtechsoft.com/pinxala/images/'.$exposure->image.'"/>
 									<br>Complete Address:
 									<br /><strong>'.$exposure->line_address.'
 									<br />'.$exposure->town->name.', '.$exposure->province->name.'</strong>

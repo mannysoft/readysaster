@@ -139,6 +139,25 @@ $(document).ready(function(){
 	
 	function showMap(submitted)
 	{
+		$.post( "{{ Request::root()}}/json/exposure-data-table", 
+					{ 
+						region_id: $('#region_id').val(),
+						province_id: $('#province_id').val(),
+						town_id: $('#town_id').val(),
+						asset_id: $('#asset_id').val(),
+						construction_id: $('#construction_id').val(),
+						op: submitted,
+						list: 1,
+						time: "2pm" 
+					}, 
+					
+					function( data ) {
+		  			//console.log(data.location)
+					//alert("test123")
+					$('#stats').html(data);
+					
+		});
+		
 		$.post( "{{ Request::root()}}/json/exposure-data", 
 					{ 
 						region_id: $('#region_id').val(),
@@ -152,6 +171,7 @@ $(document).ready(function(){
 					
 					function( data ) {
 		  			//console.log(data.location)
+					
 					
 					locations = data.location;
     

@@ -22,6 +22,7 @@ Route::any('json/regions', 					'JsonController@regions');
 Route::any('json/provinces/{id}', 			'JsonController@provinces');
 Route::any('json/towns/{id}', 				'JsonController@towns');
 Route::any('json/exposure-data', 			'JsonController@exposureData');
+Route::any('json/exposure-data-table', 		'JsonController@exposureData');
 
 Route::any('json/assets', 					'JsonController@assets');
 Route::any('json/constructions', 			'JsonController@constructions');
