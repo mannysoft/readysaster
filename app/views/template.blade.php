@@ -14,8 +14,18 @@
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
+    <!-- CSS -->
+	<style type="text/css">
+    *{ padding:0; margin:0; }
+    #map_div{
+        width:100%;
+        height:400px;
+        border:6px solid #F4F4F4;
+        margin:20px auto 0 auto;
+    }
+    </style>
+
     <link href="{{ Request::root()}}/assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <script src="{{ Request::root()}}/assets/js/jquery.js"></script>
     
         <!-- Le javascript
     ================================================== -->
@@ -35,6 +45,8 @@
     <script src="{{ Request::root()}}/assets/js/bootstrap-carousel.js"></script>
     <script src="{{ Request::root()}}/assets/js/bootstrap-typeahead.js"></script>
      <script src="{{ Request::root()}}/assets/js/sorter/jquery.tablesorter.js"></script>
+     
+     <script src="//maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="{{ Request::root()}}/assets/js/html5shiv.js"></script>

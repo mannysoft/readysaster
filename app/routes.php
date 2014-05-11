@@ -60,6 +60,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::any('json/regions', 					'JsonController@regions');
 	Route::any('json/provinces/{id}', 			'JsonController@provinces');
 	Route::any('json/towns/{id}', 				'JsonController@towns');
+	Route::any('json/exposure-data', 			'JsonController@exposureData');
 	
 });
 

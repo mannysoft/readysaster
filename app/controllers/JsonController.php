@@ -33,4 +33,17 @@ class JsonController extends BaseController {
 	{	
 		return Town::whereProvinceId($id)->orderBy('name')->lists('name', 'id');
 	}
+
+	public function exposureData()
+	{	
+		if (Input::get('town_id'))
+		{
+			return Disaster::where('town_id', '=', Input::get('town_id'))->get();
+		}
+		return Input::all();
+		exit;
+		//if ()
+		return array('1', 3);
+		//return Town::whereProvinceId($id)->orderBy('name')->lists('name', 'id');
+	}
 }

@@ -16,7 +16,7 @@ class PreDisasterController extends BaseController {
 	 *
 	 * @var interface
 	 */
-	public function __construct(Disaster $disaster)
+	public function __construct(ExposureData $disaster)
 	{
 		$this->disaster = $disaster;
 	}
@@ -25,7 +25,7 @@ class PreDisasterController extends BaseController {
 	{	
 		$data = array();
 		
-		$data['title'] = 'Pre Disaster';
+		$data['title'] = 'Exposure Data';
 		
 		$search = Input::get('search');
 
@@ -34,6 +34,8 @@ class PreDisasterController extends BaseController {
 		$data['assets'] 		= Asset::orderBy('name')->lists('name', 'id');
 		
 		$data['constructions'] 	= Construction::orderBy('name')->lists('name', 'id');
+
+		$data['exposures'] 	= ExposureData::all();
 				
 		$data['rows'] =  $this->disaster->with('user', 'lgu')->orderBy('created_at')->paginate(10);
 		$data['count'] = $this->disaster->count();
