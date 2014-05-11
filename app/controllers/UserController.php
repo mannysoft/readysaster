@@ -7,11 +7,7 @@ class UserController extends BaseController {
      */
     public function showProfile($id)
     {
-       // $user = User::find($id);
-	   
-	   $user = array();
-
-       // return View::make('user.profile', array('user' => $user));
+       
     }
 
 }

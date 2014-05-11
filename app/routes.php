@@ -11,19 +11,11 @@
 |
 */
 
-Route::any('myaccount',   'HomeController@myaccount');
-
-
-Event::listen('illuminate.query', function($sql)
-{
-    //var_dump($sql);
-}); 
-
 // Public Routes
 
 // Login
-Route::any('login',   'LoginController@login');
-Route::any('/',   'LoginController@login');
+Route::any('login',   	'LoginController@login');
+Route::any('/',   		'LoginController@login');
 
 // Json Data
 Route::any('json/regions', 					'JsonController@regions');
@@ -57,6 +49,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::any('pre-disaster', 					'PreDisasterController@index');
 	Route::any('pre-disaster/map/{id}', 		'PreDisasterController@map');
 	
+	Route::any('myaccount',   					'HomeController@myaccount');			
 	Route::any('profile', 						'AccountController@profile');
 	Route::any('profile/edit', 					'AccountController@edit');
 	Route::any('change_password', 				'AccountController@changePassword');

@@ -2,42 +2,6 @@
 
 class BaseController extends Controller {
 
-	public $code;
-	public $status;
-	public $description;
-	public $response;
-	public $menu = array(
-					'dashboard',
-					'officers',
-					);
-	public $activeMenu = 'dashboard';
-	
-	function check()
-	{
-		if(Request::get('clientID') == null or Request::get('clientID') != 'a2iosclient')
-		{
-			$this->status = 'error';
-			$this->code = '503';
-			$this->response = array(
-				'status' => $this->status,
-				'code' => 503,
-				'description' => 'Wrong username or password');
-		}
-	}
-	
-	function checkToken()
-	{
-		if(Request::get('token') == null or Request::get('token') != session_id())
-		{
-			$this->status = 'error';
-			$this->code = '503';
-			$this->response = array(
-				'status' => $this->status,
-				'code' => 503,
-				'description' => 'Invalid Token!');
-		}
-	}
-	
 	/**
 	 * Setup the layout used by the controller.
 	 *

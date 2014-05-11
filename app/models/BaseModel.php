@@ -24,7 +24,6 @@ class BaseModel extends Eloquent{
 		
 		if($validation->passes()) return true;
 		
-		//$this->errors = $validation->messages();
 		$this->errors = $validation->messages()->all();
 		
 		return false;

@@ -9,16 +9,6 @@ class JsonController extends BaseController {
 	 */
 	protected $layout = 'template';
 	
-	/**
-	 * Constructor.
-	 *
-	 * @var interface
-	 */
-	public function __construct()
-	{
-		
-	}
-	
 	public function regions()
 	{	
 		return Region::orderBy('name')->lists('name', 'id');
@@ -36,8 +26,6 @@ class JsonController extends BaseController {
 
 	public function exposureData()
 	{	
-		//return Input::all();
-
 		$locations = ExposureData::all();
 
 		$locationData 	= array();
@@ -88,21 +76,8 @@ class JsonController extends BaseController {
 		return array(
 					'location' 	=> $locationData,
 
-					'icons' 	=> $iconsData,	
-
-
-
+					'icons' 	=> $iconsData,
 			);
-
-		if (Input::get('town_id'))
-		{
-			return ExposureData::where('town_id', '=', Input::get('town_id'))->get();
-		}
-		return Input::all();
-		exit;
-		//if ()
-		return array('1', 3);
-		//return Town::whereProvinceId($id)->orderBy('name')->lists('name', 'id');
 	}
 
 	public function assets()

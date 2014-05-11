@@ -54,24 +54,4 @@ class PreDisasterController extends BaseController {
 		
 		return View::make('pre.index', $data);
 	}
-	
-	
-	public function map($id)
-	{	
-		//return Data::find($id);
-
-		$data = array();
-		
-		$data['title'] = 'Map View';
-				
-		$data['rows'] =  $this->data->with('user', 'lgu')->orderBy('created_at')->paginate(10);
-		$data['count'] = $this->data->count();
-		
-		return View::make('pre.map', $data);
-	}
-	
-	public function delete($id)
-	{
-		$this->officer->find($id)->delete();
-	}
 }

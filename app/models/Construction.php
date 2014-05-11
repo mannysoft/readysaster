@@ -10,10 +10,5 @@ class Construction extends BaseModel{
 	protected $fillable = array(
 						'name',
 						);
-	
-	public function user()
-    {
-        return $this->belongsTo('User');
-    }
 }
 ?>

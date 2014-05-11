@@ -12,8 +12,6 @@ class Town extends BaseModel {
 	
 	protected $hidden = array('created_at', 'updated_at', 'deleted_at');
 	
-	protected static $rules = array(
-				//'name'  => 'required|max:64',
-	);
+	protected static $rules = array();
 	
 }
