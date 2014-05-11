@@ -36,8 +36,6 @@ class PreDisasterController extends BaseController {
 
 		ksort($assets);
 
-		//$data['assets'] 		= Asset::orderBy('name')->lists('name', 'id');
-
 		$data['assets'] = $assets;
 		
 		$constructions 	= Construction::orderBy('name')->lists('name', 'id');
@@ -49,8 +47,6 @@ class PreDisasterController extends BaseController {
 		$data['constructions'] 	= $constructions;
 
 		$data['exposures'] 	= ExposureData::all();
-
-		//return $data['exposures'];
 				
 		//$data['rows'] =  $this->disaster->with('user', 'lgu')->orderBy('created_at')->paginate(10);
 		$data['rows'] =  $this->disaster->orderBy('created_at')->paginate(10);
