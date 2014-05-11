@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+
+    <title>Add eXposure Data Collection | PinXala | Pilipinas Exposure and Damage Assessment, and Localized Alert</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/theme.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="js/jquery-1.10.2.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+      var pictureSource;   // picture source
+      var destinationType; // sets the format of returned value 
+
+      // Wait for Cordova to connect with the device
+      //
+      document.addEventListener("deviceready",onDeviceReady,false);
+
+      // Cordova is ready to be used!
+      //
+      function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+      }
+    
+    // onSuccess Geolocation
+      //
+      function onSuccess(position) {
+        var Lat = document.getElementById('latitude');
+        var Long = document.getElementById('longitude');
+      
+      Lat.value = position.coords.latitude;
+      Long.value = position.coords.longitude;
+      
+      }
+
+      // onError Callback receives a PositionError object
+      //
+      function onError(error) {
+          alert('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+      }
+
+      // Called when a photo is successfully retrieved
+      //
+      function onPhotoDataSuccess(imageData) {
+        // Uncomment to view the base64 encoded image data
+        // console.log(imageData);
+
+        // Get image handle
+        //
+        var smallImage = document.getElementById('smallImage');
+
+        // Unhide image elements
+        //
+        smallImage.style.display = 'block';
+
+        // Show the captured photo
+        // The inline CSS rules are used to resize the image
+        //
+        smallImage.src = "data:image/jpeg;base64," + imageData;
+      }
+
+      // Called when a photo is successfully retrieved
+      //
+      function onPhotoURISuccess(imageURI) {
+        // Uncomment to view the image file URI 
+        // console.log(imageURI);
+
+        // Get image handle
+        //
+        var largeImage = document.getElementById('largeImage');
+
+        // Unhide image elements
+        //
+        largeImage.style.display = 'block';
+
+        // Show the captured photo
+        // The inline CSS rules are used to resize the image
+        //
+        largeImage.src = imageURI;
+      }
+
+      // A button will call this function
+      //
+      function capturePhoto() {
+        // Take picture using device camera and retrieve image as base64-encoded string
+        navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+          destinationType: destinationType.DATA_URL });
+      }
+
+      // A button will call this function
+      //
+      function capturePhotoEdit() {
+        // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
+        navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+          destinationType: destinationType.DATA_URL });
+      }
+
+      // A button will call this function
+      //
+      function getPhoto(source) {
+        // Retrieve image file location from specified source
+        navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+          destinationType: destinationType.FILE_URI,
+          sourceType: source });
+      }
+
+      // Called if something bad happens.
+      // 
+      function onFail(message) {
+        alert('Failed because: ' + message);
+      }
+    
+      // upload photo
+      function getImage() {
+        // Retrieve image file location from specified source
+        navigator.camera.getPicture(uploadPhoto, function(message) { alert('get picture failed'); },
+          {
+            quality: 50,
+            destinationType: navigator.camera.DestinationType.FILE_URI,
+            sourceType: navigator.camera.PictureSourceType.imageURI
+          }
+        );
+
+      }
+   
+      function uploadPhoto(imageURI) {
+        var options = new FileUploadOptions();
+        options.fileKey="file";
+        options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.mimeType="image/jpeg";
+
+        // prepare for posting of form values       
+        var lat_element = document.getElementById('latitude');
+        var lat = lat_element.value;
+        
+        var long_element = document.getElementById('longitude');
+        var long = long_element.value;
+
+        var region_element = document.getElementById('Region');
+        var RegionID = region_element.value;
+
+        var province_element = document.getElementById('Province');
+        var ProvinceID = province_element.value;
+
+        var city_element = document.getElementById('City');
+        var CityID = city_element.value;
+
+        var address_element = document.getElementById('address');
+        var address = address_element.value;
+
+        var asset_id_element = document.getElementById('asset_id');
+        var asset_id = asset_id_element.value;
+
+        var building_element = document.getElementById('building');
+        var building = building_element.value;
+
+        var families_element = document.getElementById('families');
+        var families = families_element.value;
+
+        var persons_element = document.getElementById('persons');
+        var persons = persons_element.value;
+
+        var construction_id_element = document.getElementById('construction_id');
+        var construction_id = construction_id_element.value;  
+
+        var cost_element = document.getElementById('cost');
+        var cost = cost_element.value;  
+
+        var income_month_element = document.getElementById('income_month');
+        var income_month = income_month_element.value;   
+
+        var levels_element = document.getElementById('levels');
+        var levels = levels_element.value;   
+
+        var floor_area_element = document.getElementById('floor_area');
+        var floor_area = floor_area_element.value;       
+        
+        // set for posting of form values
+        var params = new Object();
+
+        params.latitude = lat;
+        params.longitude = long;
+
+        params.town_id = CityID;
+        params.province_id = ProvinceID;
+        params.region_id = RegionID;
+        params.asset_id = asset_id;
+        params.building = building;
+        params.address = address;
+        params.persons = persons;
+        params.families = families;
+        params.construction_id = construction_id;
+        params.cost = cost;
+        params.income_month = income_month;
+        params.levels = levels;
+        params.floor_area = floor_area;     
+        
+        options.params = params;
+        options.chunkedMode = false;
+
+        var ft = new FileTransfer();
+        ft.upload(imageURI, "http://www.rustancapal.rtechsoft.com/pinxala/upload.php", win, fail, options);
+      }
+
+      function win(r) {
+        console.log("Code = " + r.responseCode);
+        console.log("Response = " + r.response);
+        console.log("Sent = " + r.bytesSent);
+        if ( r.response == "Yes" ) {
+          //redirect page
+          alert("eXposure Data successfully submitted!");
+          window.parent.location.href="exposure.html";
+        } else {
+          // stay on page
+          alert("Submission failed.");
+        }
+        
+      }
+
+      function fail(error) {
+        alert("An error has occurred: Code = " + error.code);
+      }
+      // end upload photo
+
+    </script>
+
+    <style type="text/css">
+      .page {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+      }
+       
+      .page.left {
+          left: -100%;
+      }
+       
+      .page.center {
+          left: 0;
+      }
+       
+      .page.right {
+          left: 100%;
+      }
+       
+      .page.transition {
+          -webkit-transition-duration: .25s;
+          transition-duration: .25s;
+      }
+    </style>
+
+  </head>
+
+  <body class="page transition center" role="document">
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">PinXala</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="exposure.html">eXposure Data Collection</a></li>
+            <li><a href="damage.html">Damage Assessment</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container theme-showcase" role="main">
+      
+      <!-- List of eXposure Data
+      ================================================== -->
+      <div class="page-header">
+        <h1>Add eXposure Data</h1>
+      </div>
+      
+
+      <fieldset>
+
+        <input name="Latitude" id="latitude" value="" type="hidden"  />
+        <input name="Longitude" id="longitude" value="" type="hidden" />
+
+        <div class="form-group">
+          <label for="Region">Region</label>
+          <select name="Region" id="Region" class="form-control">
+            <option value="1">National Capital Region</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="Region">Province</label>
+          <select name="Province" id="Province" class="form-control">
+            <option value="115">Metropolitan Manila</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="City">City/Municipality</label>
+          <select name="City" id="City" class="form-control">
+            <option value="146">Makati City</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Line Address</label>
+          <input type="text" name="address" id="address" class="form-control" placeholder="Line Address">
+        </div>
+
+        <div class="form-group">
+          <label for="asset_id">Exposure Data Type</label>
+          <select name="asset_id" id="asset_id" class="form-control">
+            <option value="3">Agriculture</option>
+            <option value="2">Business</option>
+            <option value="6">Electricity, Water Supply, Telecommunication</option>
+            <option value="5">Government establishments</option>
+            <option value="4">Agriculture</option>
+            <option value="1">Residential</option>
+            <option value="7">Schools (both private and public)</option>
+            <option value="8">Transportation</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="building">Building Name</label>
+          <input type="text" name="building" id="building" class="form-control" placeholder="Building Name">
+        </div>
+
+        <div class="form-group">
+          <label for="families">No. of Families</label>
+          <input type="text" name="families" id="families" class="form-control" placeholder="No. of Families">
+        </div>
+
+        <div class="form-group">
+          <label for="persons">No. of Persons</label>
+          <input type="text" name="persons" id="persons" class="form-control" placeholder="No. of Persons">
+        </div>
+
+        <div class="form-group">
+          <label for="construction_id">Construction Type</label>
+          <select name="construction_id" id="construction_id" class="form-control">
+            <option value="3">Combination</option>
+            <option value="1">Concrete</option>
+            <option value="5">Light Material</option>
+            <option value="4">Steel</option>
+            <option value="2">Wood</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="persons">Cost of Property</label>
+          <input type="text" name="cost" id="cost" class="form-control" placeholder="Cost of Property">
+        </div>
+
+        <div class="form-group">
+          <label for="persons">Average Income Per Month</label>
+          <input type="text" name="income_month" id="income_month" class="form-control" placeholder="Average Income Per Month">
+        </div>
+
+        <div class="form-group">
+          <label for="levels">No. of Floor Levels</label>
+          <input type="text" name="levels" id="levels" class="form-control" placeholder="No. of  Floor Levels">
+        </div>
+
+        <div class="form-group">
+          <label for="floor_area">Floor Area</label>
+          <input type="text" name="floor_area" id="floor_area" class="form-control" placeholder="Floor Area">
+        </div>
+
+        <button type="submit" onclick="getImage();" class="btn btn-primary">Capture Photo and Submit</button>
+
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+
+      </fieldset>
+
+      
+
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/docs.min.js"></script>
+  </body>
+</html>
