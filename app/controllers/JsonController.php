@@ -36,14 +36,80 @@ class JsonController extends BaseController {
 
 	public function exposureData()
 	{	
+		//return Input::all();
+
+		$locations = ExposureData::all();
+
+		$locationData 	= array();
+		$iconsData		= array();
+
+		
+		if (Input::get('region_id') != 0)
+		{
+			$locations = ExposureData::asset(Input::get('asset_id'))
+						->construction(Input::get('construction_id'))
+						->where('region_id', '=', Input::get('region_id'))->get();
+		}
+
+		if (Input::get('province_id') != 0)
+		{
+			$locations = ExposureData::asset(Input::get('asset_id'))
+						->construction(Input::get('construction_id'))
+						->where('province_id', '=', Input::get('province_id'))->get();
+		}
+
+		if (Input::get('town_id') != 0)
+		{
+			$locations = ExposureData::asset(Input::get('asset_id'))
+						->construction(Input::get('construction_id'))
+						->where('town_id', '=', Input::get('town_id'))->get();
+		}
+
+		$i = 0;
+
+
+
+		foreach ($locations as $exposure)
+		{
+			$locationData[] = array('<div style="display:block !important; width:300px !important; height:auto !important;">
+									<img src="'.Request::root().'/'.'"/>
+									<br /><a href=""><strong>'.$exposure->line_address.'</strong></a>
+									<br /><strong>'.$exposure->town->name.'</strong>
+									<br /><strong>'.$exposure->province->name.'</strong>
+									</div>', 
+									$exposure->lat, $exposure->lon, $i);
+			$iconsData[] 	= array($exposure->marker, $i);
+
+			$i ++;
+		}
+
+		return array(
+					'location' 	=> $locationData,
+
+					'icons' 	=> $iconsData,	
+
+
+
+			);
+
 		if (Input::get('town_id'))
 		{
-			return Disaster::where('town_id', '=', Input::get('town_id'))->get();
+			return ExposureData::where('town_id', '=', Input::get('town_id'))->get();
 		}
 		return Input::all();
 		exit;
 		//if ()
 		return array('1', 3);
 		//return Town::whereProvinceId($id)->orderBy('name')->lists('name', 'id');
+	}
+
+	public function assets()
+	{	
+		return Asset::orderBy('name')->lists('name', 'id');
+	}
+
+	public function constructions()
+	{	
+		return Construction::orderBy('name')->lists('name', 'id');
 	}
 }

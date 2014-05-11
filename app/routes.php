@@ -25,6 +25,15 @@ Event::listen('illuminate.query', function($sql)
 Route::any('login',   'LoginController@login');
 Route::any('/',   'LoginController@login');
 
+// Json Data
+Route::any('json/regions', 					'JsonController@regions');
+Route::any('json/provinces/{id}', 			'JsonController@provinces');
+Route::any('json/towns/{id}', 				'JsonController@towns');
+Route::any('json/exposure-data', 			'JsonController@exposureData');
+
+Route::any('json/assets', 					'JsonController@assets');
+Route::any('json/constructions', 			'JsonController@constructions');
+
 // Use for future API
 // Route group for API versioning
 Route::group(array('prefix' => 'api/v1'), function()
@@ -56,11 +65,7 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::any('logout',  						'LoginController@logout');
 
-	// Json Data
-	Route::any('json/regions', 					'JsonController@regions');
-	Route::any('json/provinces/{id}', 			'JsonController@provinces');
-	Route::any('json/towns/{id}', 				'JsonController@towns');
-	Route::any('json/exposure-data', 			'JsonController@exposureData');
+
 	
 });
 

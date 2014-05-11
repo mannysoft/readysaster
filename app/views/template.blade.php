@@ -18,7 +18,7 @@
 	<style type="text/css">
     *{ padding:0; margin:0; }
     #map_div{
-        width:100%;
+        width:50%;
         height:400px;
         border:6px solid #F4F4F4;
         margin:20px auto 0 auto;

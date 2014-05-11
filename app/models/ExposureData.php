@@ -24,16 +24,48 @@ class ExposureData extends BaseModel {
         return $this->belongsTo('Lgu');
     }
 
+    public function town()
+    {
+        return $this->belongsTo('Town');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo('Province');
+    }
+
     public function getMarkerAttribute($value)
     {
-        //return 'images/marker.png';
-
         $marker = array(
         		'1' => 'images/residential.jpg',
         		'2' => 'images/business.jpg',
+        		'3' => 'images/agriculture.jpg',
+        		'4' => 'images/infrastructure.jpg',
+        		'5' => 'images/government.jpg',
+        		'6' => 'images/eletricity.jpg',
+        		'7' => 'images/schools.jpg',
+        		'8' => 'images/transportation.jpg',
         		);
 
         return $marker[$this->asset_id];
+    }
+
+    public function scopeAsset($query, $asset_id)
+    {
+        if ($asset_id != 0)
+        {
+            return $query->where('asset_id', '=', $asset_id);
+        }
+
+    }
+
+    public function scopeConstruction($query, $construction_id)
+    {
+        if ($construction_id != 0)
+        {
+            return $query->where('construction_id', '=', $construction_id);
+        }
+
     }
 	
 	

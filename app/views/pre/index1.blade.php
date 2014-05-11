@@ -13,7 +13,7 @@
   <tr>
     <td align="right">Region:</td>
     <td>{{ Form::select('region_id', $regions, '', array('id' => 'region_id')) }}</td>
-    <td>Type of Exposure</td>
+    <td>Type of Asset</td>
     <td>{{ Form::select('asset_id', $assets, '', array('id' => 'asset_id')) }}</td>
   </tr>
   <tr>
@@ -139,15 +139,6 @@ $(document).ready(function(){
 		
 		showMap(1); // show the map
 		
-	});
-
-	
-	//$("#myTable").tablesorter(); 
-	
-	//------- Google Maps ---------//
-	
-	function showMap(submitted)
-	{
 		$.post( "{{ Request::root()}}/json/exposure-data", 
 					{ 
 						region_id: $('#region_id').val(),
@@ -155,7 +146,7 @@ $(document).ready(function(){
 						town_id: $('#town_id').val(),
 						asset_id: $('#asset_id').val(),
 						construction_id: $('#construction_id').val(),
-						op: submitted,
+						op: 1,
 						time: "2pm" 
 					}, 
 					
@@ -215,9 +206,79 @@ $(document).ready(function(){
 					
 		  
 		});
-			 
+		
+		
+	});
 
-	}// Show map end
+	
+	//$("#myTable").tablesorter(); 
+	
+	//------- Google Maps ---------//
+	
+	function showMap(submitted)
+	{
+			//alert(submitted)
+			
+			locations = [
+            <?php $i = 0;?>
+			<?php foreach ($exposures as $exposure): ?>
+                ['<div style="display:block !important; width:300px !important; height:auto !important;"><img src="https://www.google.com.ph/logos/doodles/2014/mothers-day-2014-international-5200436227211264-hp.jpg"/><?php //echo $station_type[$i]; ?><br /><br /><a href="<?php //echo $view_station[$i]; ?>"><strong><?php echo $exposure->address; ?></strong></a><br />as of <?php //echo $as_of_datetime[$i]; ?><br /><br /><strong><?php //echo $details[$i]; ?></strong></div>',  <?php echo $exposure->lat; ?>, <?php echo $exposure->lon; ?>, <?php echo $i; ?>]<?php if( ($i != ($exposures->count()-1)) ){ echo ","; } else { echo ""; } ?>
+				<?php $i++;?>
+            <?php endforeach; ?>
+        ];
+    
+		var map = new google.maps.Map(document.getElementById('map_div'), {
+			zoom: 9,
+			center: new google.maps.LatLng(14.24685, 121.50039),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+			
+		var infowindow = new google.maps.InfoWindow();
+					
+		var icons = [
+						<?php $i = 0;?>
+						<?php foreach ($exposures as $exposure): ?>
+							["<?php echo $exposure->marker;?>", <?php echo $i; ?>]<?php if( ($i != ($exposures->count()-1)) ){ echo ","; } else { echo ""; } ?>
+						<?php $i++;?>
+						<?php endforeach; ?>
+					];			
+		
+		var shape = {
+			  coord: [1, 1, 1, 32, 37, 37, 18 , 1],
+			  type: 'poly'
+		};
+		
+		var marker, i;
+		
+		for (i = 0; i < locations.length; i++) {  
+				marker = new google.maps.Marker({
+				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+				map: map,
+				icon: new google.maps.MarkerImage(icons[i][0], new google.maps.Size(32, 37), new google.maps.Point(0,0), new google.maps.Point(0, 32)),
+				shape: shape
+			});
+		  
+			google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+				return function() {
+					infowindow.setContent(locations[i][0]);
+					infowindow.open(map, marker);
+					google.maps.event.addListener(marker, 'click', (function(marker, i) {
+						return function() {
+							switch(i) {
+									 <?php //for ($i = 0; $i < $RS_Count; $i++) { ?>
+										case <?php //echo $i ?>1:
+											location.href = "<?php //echo $view_station[$i]; ?>";
+										break;
+									 <?php //} ?>
+							   }
+						}
+					})(marker, i));
+				}
+			})(marker, i));
+		  
+		}
+
+}// Show map end
 
 	
 
