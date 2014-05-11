@@ -15,6 +15,11 @@ class Officer extends BaseModel {
 	protected static $rules = array(
 				'name'  => 'required|max:64',
 	);
+
+	public function lgu()
+    {
+        return $this->belongsTo('Lgu');
+    }
 	
 	public function getTestAttribute($value)
     {

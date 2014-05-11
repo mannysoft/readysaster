@@ -58,13 +58,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="{{ Request::root()}}/admin/dashboard">App</a>
+          <a class="brand" href="{{ Request::root()}}/dashboard">Pinxala App</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="{{ Request::root()}}/officers">DRRM Officers</a></li>
-              <li><a href="{{ Request::root()}}/pre-disaster">Pre Disaster</a></li>
-              <li><a href="{{ Request::root()}}/post-disaster">Post Disaster</a></li>
-              <li><a href="{{ Request::root()}}/link">Link</a></li>
+              <li><a href="{{ Request::root()}}/officers">Local Disaster Managers</a></li>
+              <li><a href="{{ Request::root()}}/pre-disaster">Exposure Data</a></li>
+              <li><a href="{{ Request::root()}}/post-disaster">Post-Damage</a></li>
+              <li><a href="{{ Request::root()}}/alert">Localized Alert</a></li>
               
               @if (Auth::user()->user_type == 'admin')
               <!--<li><a href="{{ Request::root()}}/online">Who's Online</a></li>-->
@@ -102,9 +102,9 @@
     <div class="container">
 
       <!--<h1>Bootstrap starter template</h1>
-      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>-->
+      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
       
-      Welcome, <b>{{ Auth::user()->username }}</b>!
+      Welcome, <b>{{ Auth::user()->username }}</b>!-->
          
       @yield('content')
       

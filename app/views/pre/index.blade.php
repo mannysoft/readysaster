@@ -2,6 +2,36 @@
 @section('content')
 <br />
 <h4 class="text-success">{{ $title }}<span class="badge badge-success"><?=$count;?></span></h4>
+
+<table width="100%" border="0">
+  <tr>
+    <td width="14%">&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+    <td width="28%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">Region:</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">Province:</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">City/Municipality:</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="button" id="button" value="Show" /></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+
 <table width="100%" id="myTable" class="table">
   <thead>
   <tr>

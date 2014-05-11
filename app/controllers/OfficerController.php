@@ -25,11 +25,9 @@ class OfficerController extends BaseController {
 	{	
 		$data = array();
 		
-		$data['title'] = 'Officers';
-		
-		$search = Input::get('search');
+		$data['title'] = 'Local Disaster Managers';
 				
-		$data['rows'] =  $this->officer->orderBy('name')->paginate(10);
+		$data['rows'] =  $this->officer->with('lgu')->orderBy('name')->paginate(10);
 		$data['count'] = $this->officer->count();
 		
 		return View::make('officers.index', $data);

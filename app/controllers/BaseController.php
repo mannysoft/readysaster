@@ -6,6 +6,11 @@ class BaseController extends Controller {
 	public $status;
 	public $description;
 	public $response;
+	public $menu = array(
+					'dashboard',
+					'officers',
+					);
+	public $activeMenu = 'dashboard';
 	
 	function check()
 	{
