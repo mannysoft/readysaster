@@ -18,8 +18,8 @@
 	<style type="text/css">
     *{ padding:0; margin:0; }
     #map_div{
-        width:50%;
-        height:400px;
+        width:100%;
+        height:350px;
         border:6px solid #F4F4F4;
         margin:20px auto 0 auto;
     }
@@ -90,21 +90,7 @@
                 </ul>
               </li>
               
-              <!--
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>-->
+             
             </ul>
           </div><!--/.nav-collapse -->
         </div>

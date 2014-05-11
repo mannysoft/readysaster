@@ -34,6 +34,11 @@ class ExposureData extends BaseModel {
         return $this->belongsTo('Province');
     }
 
+    public function asset()
+    {
+        return $this->belongsTo('Asset');
+    }
+
     public function getMarkerAttribute($value)
     {
         $marker = array(
@@ -50,7 +55,7 @@ class ExposureData extends BaseModel {
         return $marker[$this->asset_id];
     }
 
-    public function scopeAsset($query, $asset_id)
+    public function scopeAssetData($query, $asset_id)
     {
         if ($asset_id != 0)
         {

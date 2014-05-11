@@ -1,7 +1,7 @@
 @extends('template')
 @section('content')
 <br />
-<h4 class="text-success">{{ $title }}<span class="badge badge-success"><?=$count;?></span></h4>
+<h4 class="text-success">{{ $title }}</h4>
 
 <table width="100%" border="0">
   <tr>
@@ -36,56 +36,53 @@
   </tr>
 </table>
 
-<div id="map_div">&nbsp;</div>
 
 
-<table width="100%" id="myTable" class="table">
-  <thead>
-  <tr>
-    <th width="2%">&nbsp;</th>
-    <th width="26%">Date</th>
-    <th width="13%"><strong>LGU</strong></th>
-    <th width="19%">Name</th>
-    <th width="17%">Address</th>
-    <th width="4%">Actions</th>
-    <td width="19%">
-      <!--<a href="{{Request::root()}}/add" class="btn btn-primary btn-small">Add</a>-->
-    </td>
-  </tr>
-  </thead>
-  <tbody>
-  <?php $i=1;?>
-  
-  @foreach($rows as $row)
-  <tr>
-    <td><?=$i++;?></td>
-    <td>{{ $row->created_at->toFormattedDateString() }}</td>
-    <td></td>
-    <td>{{ $row->user->first_name }} {{ $row->user->last_name }}</td>
-    <td>{{ $row->address }}</td>
-    <td></td>
-    <td>
-      <!--<a href="{{Request::root()}}/submitted/view/{{ $row->id }}" class="btn btn-primary btn-small">Picture</a>
-      <a href="{{Request::root()}}/submitted/map/{{ $row->id }}" class="btn btn-primary btn-small">Map</a>
-      <a href="{{Request::root()}}/admin/photo/edit/{{ $row->id }}" class="btn btn-primary btn-small">Edit</a>
-      <a href="#" class="btn btn-small" id="delete" val="{{ $row->id }}">Delete</a>-->
-    </td>
-  </tr>
-  @endforeach
-  </tbody>
-</table>
+<!-- Example row of columns -->
+  <div class="row">
+    <div class="span6">
+     	<div id="map_div">&nbsp;</div>
+    </div>
+    <div class="span6">
+      <div id="stats">
+          <table width="100%" id="myTable" class="table">
+              <thead>
+              <tr>
+                <th width="2%">&nbsp;</th>
+                <th width="27%">Complete Address</th>
+                <th width="28%"><strong>Type of Exposure</strong></th>
+                <th width="8%">Cost of Property</th>
+                <th width="10%">Number of Person</th>
+                <th width="13%">Number of Family</th>
+                <td width="12%">
+                  <!--<a href="{{Request::root()}}/add" class="btn btn-primary btn-small">Add</a>-->
+                  <strong>Average Income per month</strong></td>
+              </tr>
+              </thead>
+              <tbody>
+              <?php $i=1;?>
+              
+              @foreach($rows as $row)
+              <tr>
+                <td><?=$i++;?></td>
+                <td>{{ $row->line_address }}</td>
+                <td><img src="{{ $row->marker }}" />{{ $row->asset->name }}</td>
+                <td>{{ $row->cost }}</td>
+                <td>{{ $row->persons }}</td>
+                <td>{{ $row->families }}</td>
+                <td>{{ $row->income_month }}</td>
+              </tr>
+              @endforeach
+              </tbody>
+            </table>
+            
+        </div>
 
-
-<?php echo $rows->links(); ?>
-
-
+   </div>
 
 
 <script>
 $(document).ready(function(){ 
-	
-	//alert("")
-	//var office_id = $(this)[0].value.toString();
 	
 	showMap(0); // show the map
 		
@@ -129,20 +126,14 @@ $(document).ready(function(){
 		
 	});
 	
-	$('#municipality_id').change(function(){
-		
-		//alert("municipality_id");
-		
-	});
 	
 	$('#show').click(function(){
 		
 		showMap(1); // show the map
 		
+		// Reload new data
+		
 	});
-
-	
-	//$("#myTable").tablesorter(); 
 	
 	//------- Google Maps ---------//
 	
@@ -160,7 +151,7 @@ $(document).ready(function(){
 					}, 
 					
 					function( data ) {
-		  			console.log(data.location)
+		  			//console.log(data.location)
 					
 					locations = data.location;
     
@@ -209,12 +200,10 @@ $(document).ready(function(){
 		  
 		}
 					
-					
-					
-					
-					
 		  
 		});
+		
+	
 			 
 
 	}// Show map end

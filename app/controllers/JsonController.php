@@ -46,21 +46,21 @@ class JsonController extends BaseController {
 		
 		if (Input::get('region_id') != 0)
 		{
-			$locations = ExposureData::asset(Input::get('asset_id'))
+			$locations = ExposureData::assetData(Input::get('asset_id'))
 						->construction(Input::get('construction_id'))
 						->where('region_id', '=', Input::get('region_id'))->get();
 		}
 
 		if (Input::get('province_id') != 0)
 		{
-			$locations = ExposureData::asset(Input::get('asset_id'))
+			$locations = ExposureData::assetData(Input::get('asset_id'))
 						->construction(Input::get('construction_id'))
 						->where('province_id', '=', Input::get('province_id'))->get();
 		}
 
 		if (Input::get('town_id') != 0)
 		{
-			$locations = ExposureData::asset(Input::get('asset_id'))
+			$locations = ExposureData::assetData(Input::get('asset_id'))
 						->construction(Input::get('construction_id'))
 						->where('town_id', '=', Input::get('town_id'))->get();
 		}
@@ -72,10 +72,12 @@ class JsonController extends BaseController {
 		foreach ($locations as $exposure)
 		{
 			$locationData[] = array('<div style="display:block !important; width:300px !important; height:auto !important;">
-									<img src="'.Request::root().'/'.'"/>
-									<br /><a href=""><strong>'.$exposure->line_address.'</strong></a>
-									<br /><strong>'.$exposure->town->name.'</strong>
-									<br /><strong>'.$exposure->province->name.'</strong>
+									<img src="'.Request::root().'/'.$exposure->image.'"/>
+									<br>Complete Address:
+									<br /><strong>'.$exposure->line_address.'
+									<br />'.$exposure->town->name.', '.$exposure->province->name.'</strong>
+									<br>Type of Exposure:
+									<br /><strong>'.$exposure->asset->name.'</strong>
 									</div>', 
 									$exposure->lat, $exposure->lon, $i);
 			$iconsData[] 	= array($exposure->marker, $i);
