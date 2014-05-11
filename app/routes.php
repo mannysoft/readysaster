@@ -52,7 +52,14 @@ Route::group(array('before' => 'auth'), function()
 	Route::any('profile/edit', 					'AccountController@edit');
 	Route::any('change_password', 				'AccountController@changePassword');
 
+	
+
 	Route::any('logout',  						'LoginController@logout');
+
+	// Json Data
+	Route::any('json/regions', 					'JsonController@regions');
+	Route::any('json/provinces/{id}', 			'JsonController@provinces');
+	Route::any('json/towns/{id}', 				'JsonController@towns');
 	
 });
 

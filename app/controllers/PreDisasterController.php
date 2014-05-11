@@ -28,6 +28,12 @@ class PreDisasterController extends BaseController {
 		$data['title'] = 'Pre Disaster';
 		
 		$search = Input::get('search');
+
+		$data['regions'] = array('0' => 'All', 1, 2, 3);
+
+		$data['assets'] 		= Asset::orderBy('name')->lists('name', 'id');
+		
+		$data['constructions'] 	= Construction::orderBy('name')->lists('name', 'id');
 				
 		$data['rows'] =  $this->disaster->with('user', 'lgu')->orderBy('created_at')->paginate(10);
 		$data['count'] = $this->disaster->count();
